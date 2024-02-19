@@ -24,8 +24,8 @@ public final class Constants {
     public static final int kRightMotor2Port = 4;
 }
 public static final class OIConstants {
-    public static final int kRightJoystickPort = 1;
-    public static final int kLeftJoystickPort = 2;
+    public static final int kRightJoystickPort = 2;
+    public static final int kLeftJoystickPort = 1;
     public static final int kXboxControllerPort = 0;
     public static final int kXboxController2Port = 3;
     
