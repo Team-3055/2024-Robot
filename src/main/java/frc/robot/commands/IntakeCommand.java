@@ -2,7 +2,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.NoteIntake;
-import frc.robot.Constants;
 
 public class IntakeCommand extends InstantCommand {
 
@@ -21,13 +20,13 @@ public class IntakeCommand extends InstantCommand {
 
   @Override
   public void execute() {
-    m_subsystem.intakeMotor.set(Constants.nIntakeConstants.kIntakeMotor);
+    m_subsystem.intakeMotor1.set(1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_subsystem.intakeMotor.set(0);
+    m_subsystem.intakeMotor1.set(0);
   }
 
   // Returns true when the command should end.
