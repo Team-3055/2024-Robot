@@ -1,12 +1,12 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class ArmHang extends SubsystemBase{
+public class ArmHang extends SubsystemBase {
 
-    private WPI_TalonSRX motor = new WPI_TalonSRX(Constants.MotorPorts.ArmHangHydrolicPort);
+    private WPI_VictorSPX motor = new WPI_VictorSPX(Constants.MotorPorts.ArmHangHydrolicPort);
 
     public void extend() {
         motor.set(1); // Set the motor speed to 1 to extend the hydraulic system.

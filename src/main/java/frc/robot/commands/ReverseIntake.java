@@ -2,12 +2,13 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.NoteIntake;
+//import frc.robot.Constants;
 
-public class ShootCommand extends InstantCommand {
+public class ReverseIntake extends InstantCommand {
 
     private final NoteIntake m_subsystem;
 
-    public ShootCommand(NoteIntake subsystem) {
+    public ReverseIntake(NoteIntake subsystem) {
         m_subsystem = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
@@ -20,17 +21,20 @@ public class ShootCommand extends InstantCommand {
 
   @Override
   public void execute() {
-    m_subsystem.shooterMotor1.set(1);
-    m_subsystem.shooterMotor2.set(1);
-    m_subsystem.shooterMotor1.setInverted(false);
-    m_subsystem.shooterMotor2.setInverted(false);
-  }
+    m_subsystem.intakeMotor1.set(-0.75);
+    m_subsystem.intakeMotor2.set(-0.75);
+    m_subsystem.middleMotor.set(-1);
+    m_subsystem.intakeMotor1.setInverted(true);
+    m_subsystem.intakeMotor2.setInverted(true);
+    m_subsystem.middleMotor.setInverted(false);
+;  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_subsystem.shooterMotor1.set(0);
-    m_subsystem.shooterMotor2.set(0);
+    m_subsystem.intakeMotor1.set(0);
+    m_subsystem.intakeMotor2.set(0);
+    m_subsystem.middleMotor.set(0);
   }
 
   // Returns true when the command should end.

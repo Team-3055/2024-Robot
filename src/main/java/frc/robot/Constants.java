@@ -24,8 +24,8 @@ public final class Constants {
     public static final int kRightMotor2Port = 4;
 }
 public static final class OIConstants {
-    public static final int kRightControllerPort = 2;
-    public static final int kLeftControllerPort = 1;
+    public static final int kRightJoystickPort = 2;
+    public static final int kLeftJoystickPort = 1;
     public static final int kXboxControllerPort = 0;
     public static final int kXboxController2Port = 3;
     
@@ -34,6 +34,7 @@ public static final class OIConstants {
     public static final int kJoystickTop = 2;
 }
 public static final class PNUConstants {
+    //useless 2024
     public static final int kCompressor = 0;
     public static final int kSolenoid1 = 0;
     public static final int kSolenoid2 = 1;
@@ -42,6 +43,7 @@ public static final class PNUConstants {
 
 
 public static final class MISCMotorConstants {
+    //useless 2024
     public static final int kWheel = 5;
     public static final int kWinch1 = 7;
     public static final int kWinch2 = 11;
@@ -51,6 +53,7 @@ public static final class MISCMotorConstants {
 
 
 public static final class nIntakeConstants {
+    //quite useless 
     public static final int kIntakeMotor = 9;
     public static final int kLaunchMotor1 = 6;
     public static final int kLaunchMotor2 = 4;

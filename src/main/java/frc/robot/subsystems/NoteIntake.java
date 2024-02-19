@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+//import com.ctre.phoenix.motorcontrol.InvertType;
 
 public class NoteIntake extends SubsystemBase {
     public final WPI_TalonSRX intakeMotor1 = new WPI_TalonSRX(Constants.MotorPorts.IntakeMotorPort);
@@ -23,6 +24,7 @@ public void IntakeNote(float speed){
     intakeMotor1.setInverted(false);
     intakeMotor2.setInverted(false);
     middleMotor.setInverted(false);
+
 }
 
 

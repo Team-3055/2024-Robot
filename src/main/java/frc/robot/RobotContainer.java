@@ -12,6 +12,7 @@ import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.NoteIntake;
 import frc.robot.subsystems.ArmHang;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -21,6 +22,8 @@ import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.ExtendCommand;
 import frc.robot.commands.RetractCommand;
+import frc.robot.commands.ReverseShooter;
+import frc.robot.commands.ReverseIntake;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -40,9 +43,7 @@ public class RobotContainer {
   private final XboxController m_driverController =
       new XboxController(OIConstants.kXboxControllerPort);
 
-  private final XboxController m_driverController2 =
-      new XboxController(OIConstants.kXboxController2Port);
-
+  Joystick m_driverRJoystick = new Joystick(OIConstants.kRightJoystickPort);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
@@ -73,20 +74,24 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-   // new JoystickButton(m_driverController, XboxController.Button.kX.value).onTrue(m_exampleSubsystem.exampleMethodCommand());
-    // Bind the shoot command to the 'B' button on the controller
-    new JoystickButton(m_driverController2, XboxController.Button.kB.value)
+
+    new JoystickButton(m_driverRJoystick, 1)
         .whileTrue(new ShootCommand(m_intake));
-    // Bind the shoot command to the 'A' button on the controller
-    new JoystickButton(m_driverController2, XboxController.Button.kA.value)
+
+    new JoystickButton(m_driverRJoystick, 2)
         .whileTrue(new IntakeCommand(m_intake));
-    // Bind the retracting hydrolic command to the 'X' button
-    new JoystickButton(m_driverController2, XboxController.Button.kX.value)
+
+    new JoystickButton(m_driverRJoystick, 3)
+        .whileTrue(new ReverseShooter(m_intake));
+    
+    new JoystickButton(m_driverRJoystick, 4)
+        .whileTrue(new ReverseIntake(m_intake));
+
+    new JoystickButton(m_driverRJoystick, 5)
         .whileTrue(new RetractCommand(m_armHang));
-    // Bind the extend hydrolic command to the 'Y' button
-    new JoystickButton(m_driverController2, XboxController.Button.kY.value)
-        .whileTrue(new ExtendCommand(m_armHang));
-    // Bind the joystick to drive command
+  
+    new JoystickButton(m_driverRJoystick, 6)
+        .whileTrue(new ExtendCommand(m_armHang)); 
   }
 
   /**
