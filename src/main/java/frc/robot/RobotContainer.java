@@ -11,7 +11,6 @@ import frc.robot.commands.TankDrive;
 //import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.NoteIntake;
 import frc.robot.subsystems.ArmHang;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -40,8 +39,7 @@ public class RobotContainer {
   private final ArmHang m_armHang = new ArmHang();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final XboxController m_driverController =
-      new XboxController(OIConstants.kXboxControllerPort);
+  Joystick m_driverLJoystick = new Joystick(OIConstants.kLeftJoystickPort);
   
   Joystick m_driverRJoystick = new Joystick(OIConstants.kRightJoystickPort);
  
@@ -55,8 +53,8 @@ public class RobotContainer {
         // hand, and turning controlled by the right.
         new TankDrive(
             m_robotDrive,
-            () -> (m_driverController.getLeftY()),
-            () -> m_driverController.getRightY()));
+            () -> (m_driverRJoystick.getRawAxis(1)*1),
+            () -> m_driverLJoystick.getRawAxis(1)*1));
   }
 
   /**
@@ -82,16 +80,16 @@ public class RobotContainer {
     new JoystickButton(m_driverRJoystick, 2)
         .whileTrue(new IntakeCommand(m_intake));
 
-    new JoystickButton(m_driverRJoystick, 3)
+    new JoystickButton(m_driverLJoystick, 1)
         .whileTrue(new ReverseShooter(m_intake));
     
-    new JoystickButton(m_driverRJoystick, 4)
+    new JoystickButton(m_driverLJoystick, 2)
         .whileTrue(new ReverseIntake(m_intake));
 
-    new JoystickButton(m_driverRJoystick, 5)
+    new JoystickButton(m_driverLJoystick, 3)
         .whileTrue(new RetractCommand(m_armHang));
   
-    new JoystickButton(m_driverRJoystick, 6)
+    new JoystickButton(m_driverRJoystick, 3)
         .whileTrue(new ExtendCommand(m_armHang)); 
   }
 
