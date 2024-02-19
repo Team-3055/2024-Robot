@@ -53,8 +53,8 @@ public class RobotContainer {
         // hand, and turning controlled by the right.
         new TankDrive(
             m_robotDrive,
-            () -> (m_driverRJoystick.getRawAxis(1)*1),
-            () -> m_driverLJoystick.getRawAxis(1)*1));
+            () -> (m_driverLJoystick.getRawAxis(1)*1),
+            () -> m_driverRJoystick.getRawAxis(1)*1));
   }
 
   /**
