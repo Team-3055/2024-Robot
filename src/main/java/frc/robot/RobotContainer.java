@@ -4,14 +4,23 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.Constants.OIConstants;
+import frc.robot.subsystems.DriveSubsystem;
+//import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.TankDrive;
+//import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.NoteIntake;
+import frc.robot.subsystems.ArmHang;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
+import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.ShootCommand;
+import frc.robot.commands.ExtendCommand;
+import frc.robot.commands.RetractCommand;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -20,16 +29,32 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  //private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+
+  // import each subsystem
+  private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  private final NoteIntake m_intake = new NoteIntake();
+  private final ArmHang m_armHang = new ArmHang();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  private final XboxController m_driverController =
+      new XboxController(OIConstants.kXboxControllerPort);
+
+  private final XboxController m_driverController2 = 
+      new XboxController(OIConstants.kXboxController2Port);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
+
     configureBindings();
+    m_robotDrive.setDefaultCommand(
+        // A split-stick arcade command, with forward/backward controlled by the left
+        // hand, and turning controlled by the right.
+        new TankDrive(
+            m_robotDrive,
+            () -> (m_driverController.getLeftY()),
+            () -> m_driverController.getRightY()));
   }
 
   /**
@@ -43,12 +68,26 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
+    //new Trigger(m_exampleSubsystem::exampleCondition)
+       // .onTrue(new ExampleCommand(m_exampleSubsystem));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+   // new JoystickButton(m_driverController, XboxController.Button.kX.value).onTrue(m_exampleSubsystem.exampleMethodCommand());
+    // Bind the shoot command to the 'B' button on the controller
+    new JoystickButton(m_driverController2, XboxController.Button.kB.value)
+        .whileTrue(new ShootCommand(m_intake));
+    // Bind the shoot command to the 'A' button on the controller
+    new JoystickButton(m_driverController2, XboxController.Button.kA.value)
+        .whileTrue(new IntakeCommand(m_intake));
+    //new JoystickButton(m_driverController, XboxController.Button.kA.value).onTrue(m_intake.IntakeNote(0););
+    // Bind the retracting hydrolic command to the 'X' button
+    new JoystickButton(m_driverController2, XboxController.Button.kX.value)
+        .whileTrue(new RetractCommand(m_armHang));
+    // Bind the extend hydrolic command to the 'Y' button
+    new JoystickButton(m_driverController2, XboxController.Button.kY.value)
+        .whileTrue(new ExtendCommand(m_armHang));   
+      
   }
 
   /**
@@ -58,6 +97,9 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    return null;
   }
-}
+
+
+};
+
