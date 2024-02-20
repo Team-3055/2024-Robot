@@ -23,6 +23,7 @@ import frc.robot.commands.ExtendCommand;
 import frc.robot.commands.RetractCommand;
 import frc.robot.commands.ReverseShooter;
 import frc.robot.commands.ReverseIntake;
+import frc.robot.commands.AutoCommand;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -100,7 +101,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return null;
+    return new AutoCommand(m_robotDrive, 5000); // time in milleseconds 
   }
 
 
