@@ -67,4 +67,10 @@ public static final class MotorPorts{
     public static final int ShooterMotor2Port = 11;
     public static final int middleMotorPort = 5;
 }
+public static final class VisionConstants{
+    public static final double distanceMax = 10; //inches
+    public static final double distanceMin = -10; //inches
+    public static final double yawOffsetMax = 0.3925; //radians
+    public static final double yawOffsetMin = 0.3925; //radians
+}
 }

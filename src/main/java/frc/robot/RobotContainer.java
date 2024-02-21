@@ -11,6 +11,7 @@ import frc.robot.commands.TankDrive;
 //import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.NoteIntake;
 import frc.robot.subsystems.ArmHang;
+import frc.robot.subsystems.VisionSystem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -24,6 +25,7 @@ import frc.robot.commands.ExtendCommand;
 import frc.robot.commands.RetractCommand;
 import frc.robot.commands.ReverseShooter;
 import frc.robot.commands.ReverseIntake;
+import frc.robot.commands.AutoCommands.TurnToTarget;
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -38,6 +40,7 @@ public class RobotContainer {
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final NoteIntake m_intake = new NoteIntake();
   private final ArmHang m_armHang = new ArmHang();
+  private final VisionSystem m_vision = new VisionSystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final XboxController m_driverController =
@@ -93,6 +96,9 @@ public class RobotContainer {
   
     new JoystickButton(m_driverRJoystick, 6)
         .whileTrue(new ExtendCommand(m_armHang)); 
+
+    new JoystickButton(m_driverRJoystick, 7)
+        .whileTrue(new TurnToTarget(m_vision, m_robotDrive));
   }
 
   /**
