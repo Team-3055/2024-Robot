@@ -25,8 +25,8 @@ public class AutoCommand extends InstantCommand {
   @Override
   public void execute() {
     m_subsystem.tankDrive(1,1);
-    for(int i = 0; i <= m_time; i++){
-        currentTime++;
+    while(currentTime < m_time){
+      break;
     }
   }
 
