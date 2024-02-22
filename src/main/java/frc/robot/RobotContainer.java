@@ -101,7 +101,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return new AutoCommand(m_robotDrive, 5000); // time in milleseconds 
+    return new AutoCommand(m_robotDrive, 5); // time in milleseconds 
   }
 
 

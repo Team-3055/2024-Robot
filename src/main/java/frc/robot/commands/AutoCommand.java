@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.DriveSubsystem;
 
@@ -7,7 +8,7 @@ public class AutoCommand extends InstantCommand {
 
     private final DriveSubsystem m_subsystem;
     private final int m_time; // In milleseconds
-    private int currentTime = 0;
+    private double currentTime = 0.0;
 
     public AutoCommand(DriveSubsystem subsystem, int time) {
         m_subsystem = subsystem;
@@ -26,7 +27,7 @@ public class AutoCommand extends InstantCommand {
   public void execute() {
     m_subsystem.tankDrive(1,1);
     while(currentTime < m_time){
-      break;
+      currentTime = DriverStation.getMatchTime();
     }
   }
 
