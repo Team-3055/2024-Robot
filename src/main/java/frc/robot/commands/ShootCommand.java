@@ -22,8 +22,10 @@ public class ShootCommand extends InstantCommand {
   public void execute() {
     m_subsystem.shooterMotor1.set(1);
     m_subsystem.shooterMotor2.set(1);
+    m_subsystem.middleMotor.set(1);
     m_subsystem.shooterMotor1.setInverted(false);
     m_subsystem.shooterMotor2.setInverted(false);
+    m_subsystem.middleMotor.setInverted(false);    
   }
 
   // Called once the command ends or is interrupted.
@@ -31,6 +33,7 @@ public class ShootCommand extends InstantCommand {
   public void end(boolean interrupted) {
     m_subsystem.shooterMotor1.set(0);
     m_subsystem.shooterMotor2.set(0);
+    m_subsystem.middleMotor.set(0);
   }
 
   // Returns true when the command should end.
