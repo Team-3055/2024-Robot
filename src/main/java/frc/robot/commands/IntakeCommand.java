@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.Constants.RobotConstants;
 import frc.robot.subsystems.NoteIntake;
 //import frc.robot.Constants;
 
@@ -21,12 +22,12 @@ public class IntakeCommand extends InstantCommand {
 
   @Override
   public void execute() {
-    m_subsystem.intakeMotor1.set(0.4);
-    m_subsystem.intakeMotor2.set(0.4);
+    m_subsystem.intakeMotor1.set(RobotConstants.intakeSpeed);
+    m_subsystem.intakeMotor2.set(RobotConstants.intakeSpeed);
     m_subsystem.middleMotor.set(1);
     m_subsystem.intakeMotor1.setInverted(false);
     m_subsystem.intakeMotor2.setInverted(false);
-    m_subsystem.middleMotor.setInverted(false);
+    m_subsystem.middleMotor.setInverted(true);
 ;  }
 
   // Called once the command ends or is interrupted.
