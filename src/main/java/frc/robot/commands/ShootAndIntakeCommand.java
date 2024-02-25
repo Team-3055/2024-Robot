@@ -4,11 +4,11 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Constants.RobotConstants;
 import frc.robot.subsystems.NoteIntake;
 
-public class ShootCommand extends InstantCommand {
+public class ShootAndIntakeCommand extends InstantCommand{
 
     private final NoteIntake m_subsystem;
 
-    public ShootCommand(NoteIntake subsystem) {
+    public ShootAndIntakeCommand(NoteIntake subsystem) {
         m_subsystem = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
@@ -23,7 +23,11 @@ public class ShootCommand extends InstantCommand {
   public void execute() {
     m_subsystem.shooterMotor1.set(RobotConstants.shooterSpeed);
     m_subsystem.shooterMotor2.set(RobotConstants.shooterSpeed);
-    m_subsystem.middleMotor.set(1);
+    m_subsystem.middleMotor.set(RobotConstants.intakeSpeed);
+    m_subsystem.intakeMotor1.set(RobotConstants.intakeSpeed);
+    m_subsystem.intakeMotor2.set(RobotConstants.intakeSpeed);
+    m_subsystem.intakeMotor1.setInverted(false);
+    m_subsystem.intakeMotor2.setInverted(false);
     m_subsystem.shooterMotor1.setInverted(false);
     m_subsystem.shooterMotor2.setInverted(false);
     m_subsystem.middleMotor.setInverted(true);    
@@ -35,6 +39,9 @@ public class ShootCommand extends InstantCommand {
     m_subsystem.shooterMotor1.set(0);
     m_subsystem.shooterMotor2.set(0);
     m_subsystem.middleMotor.set(0);
+    m_subsystem.intakeMotor1.set(0);
+    m_subsystem.intakeMotor2.set(0);
+    
   }
 
   // Returns true when the command should end.
@@ -42,5 +49,4 @@ public class ShootCommand extends InstantCommand {
   public boolean isFinished() {
     return false;
   }
-    
 }

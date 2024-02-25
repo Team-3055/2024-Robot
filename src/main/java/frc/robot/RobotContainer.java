@@ -25,7 +25,10 @@ import frc.robot.commands.RetractCommand;
 import frc.robot.commands.ReverseShooter;
 import frc.robot.commands.ReverseIntake;
 import frc.robot.commands.AutoCommand;
+import frc.robot.commands.ShootAndIntakeCommand;
+
 import frc.robot.Constants.RobotConstants;
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -97,6 +100,9 @@ public class RobotContainer {
   
     new JoystickButton(m_driverRJoystick, 6)
         .whileTrue(new ExtendCommand(m_armHang)); 
+
+    new JoystickButton(m_driverRJoystick, 3)
+        .whileTrue(new ShootAndIntakeCommand(m_intake));
   }
 
   /**

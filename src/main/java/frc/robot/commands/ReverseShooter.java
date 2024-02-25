@@ -26,7 +26,7 @@ public class ReverseShooter extends InstantCommand {
     m_subsystem.middleMotor.set(-1);
     m_subsystem.shooterMotor1.setInverted(false);
     m_subsystem.shooterMotor2.setInverted(false);
-    m_subsystem.middleMotor.setInverted(false);
+    m_subsystem.middleMotor.setInverted(true);
   }
 
   // Called once the command ends or is interrupted.

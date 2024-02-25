@@ -70,6 +70,6 @@ public static final class MotorPorts{
 public static final class RobotConstants{
     public static final double driveSpeed = 0.5;
     public static final double shooterSpeed = 1.0;
-    public static final double intakeSpeed = 0.4;
+    public static final double intakeSpeed = 0.3;
 }
 }
