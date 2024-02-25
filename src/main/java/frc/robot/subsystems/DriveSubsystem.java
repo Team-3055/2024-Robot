@@ -53,7 +53,10 @@ public class DriveSubsystem extends SubsystemBase {
    * @param leftspeed left motor output
    * @param rightspeed right motor output
    */
-    public void tankDrive(double leftSpeed, double rightSpeed){
+    public void tankDrive(double leftSpeed, double rightSpeed, double speed_modifier){
+      leftSpeed = leftSpeed * speed_modifier;
+      rightSpeed = rightSpeed * speed_modifier;
+      
       t_drive.tankDrive(leftSpeed, rightSpeed);
       leftRearMotor.follow(leftFrontMotor);
       rightRearMotor.follow(rightFrontMotor);

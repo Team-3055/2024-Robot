@@ -20,13 +20,13 @@ public class RetractCommand extends InstantCommand {
 
   @Override
   public void execute() {
-    m_subsystem.retract();
+    m_subsystem.retractShooter();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_subsystem.stop();
+    m_subsystem.stopShooter();
   }
 
   // Returns true when the command should end.

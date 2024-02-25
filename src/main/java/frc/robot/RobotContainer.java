@@ -12,6 +12,7 @@ import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.NoteIntake;
 import frc.robot.subsystems.ArmHang;
 import edu.wpi.first.wpilibj.Joystick;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -22,12 +23,11 @@ import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.ExtendCommand;
 import frc.robot.commands.RetractCommand;
-import frc.robot.commands.ReverseShooter;
 import frc.robot.commands.ReverseIntake;
 import frc.robot.commands.AutoCommand;
 import frc.robot.commands.ShootAndIntakeCommand;
-
-import frc.robot.Constants.RobotConstants;
+import frc.robot.commands.ExtendHookCommand;
+import frc.robot.commands.RetractHookCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -48,7 +48,7 @@ public class RobotContainer {
   //Joystick m_driverLJoystick = new Joystick(OIConstants.kLeftJoystickPort);
   
   Joystick m_driverRJoystick = new Joystick(OIConstants.kRightJoystickPort);
-
+  
   private final XboxController m_driverController = 
     new XboxController(OIConstants.kXboxControllerPort);
  
@@ -62,8 +62,8 @@ public class RobotContainer {
         // hand, and turning controlled by the right.
         new TankDrive(
             m_robotDrive,
-            () -> (m_driverController.getLeftY()*RobotConstants.driveSpeed),
-            () -> m_driverController.getRightY()*RobotConstants.driveSpeed));
+            () -> (m_driverController.getLeftY()),
+            () -> (m_driverController.getRightY()), () -> ((m_driverRJoystick.getThrottle() * 0.375) + 0.625)));
   }
 
   /**
@@ -82,27 +82,30 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-
-    new JoystickButton(m_driverRJoystick, 1)
-        .whileTrue(new ShootCommand(m_intake));
+    new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value)
+        .whileTrue(new ReverseIntake(m_intake));
 
     new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value)
         .whileTrue(new IntakeCommand(m_intake));
 
     new JoystickButton(m_driverRJoystick, 2)
-        .whileTrue(new ReverseShooter(m_intake));
-    
-    new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value)
-        .whileTrue(new ReverseIntake(m_intake));
+        .whileTrue(new ShootCommand(m_intake));
 
-    new JoystickButton(m_driverRJoystick, 5)
+    new JoystickButton(m_driverRJoystick, 1)
+        .whileTrue(new ShootAndIntakeCommand(m_intake));
+    
+    new JoystickButton(m_driverRJoystick, 3)
         .whileTrue(new RetractCommand(m_armHang));
   
-    new JoystickButton(m_driverRJoystick, 6)
+    new JoystickButton(m_driverRJoystick,5)
         .whileTrue(new ExtendCommand(m_armHang)); 
 
-    new JoystickButton(m_driverRJoystick, 3)
-        .whileTrue(new ShootAndIntakeCommand(m_intake));
+    new JoystickButton(m_driverRJoystick, 6)
+        .whileTrue(new ExtendHookCommand(m_armHang));
+    
+    new JoystickButton(m_driverRJoystick, 4)
+        .whileTrue(new RetractHookCommand(m_armHang));
+
   }
 
   /**

@@ -30,7 +30,7 @@ public class AutoCommand extends InstantCommand {
     //System.out.println(timeIt);
     timeIt++;
     if(timeIt >= 100 && timeIt <= 500){
-      m_subsystem.tankDrive(0.5,0.5);
+      m_subsystem.tankDrive(0.5,0.5, 1);
       //new TimeCommand().withTimeout(1);
    }
   }
@@ -38,7 +38,7 @@ public class AutoCommand extends InstantCommand {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_subsystem.tankDrive(0, 0);
+    m_subsystem.tankDrive(0, 0, 1);
     System.out.println("!!!!!!!!!!AUTONOMOUS ENDED HERE!!!!!!!!!!!!");
     timeIt = 0;
   }

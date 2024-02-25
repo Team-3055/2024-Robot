@@ -23,6 +23,7 @@ public class TankDrive extends Command {
   private final DriveSubsystem m_drive;
   private final DoubleSupplier m_left;
   private final DoubleSupplier m_right;
+  private final DoubleSupplier m_speed_modifier;
 
   /**
    * Creates a new DefaultDrive.
@@ -30,16 +31,18 @@ public class TankDrive extends Command {
    * @param subsystem The drive subsystem this command wil run on.
    * @param left The control input for driving left motors
    * @param right The control input for driving right motors
+   * @param speed_modifier speed modifer for drive system
    */
-  public TankDrive(DriveSubsystem subsystem, DoubleSupplier left, DoubleSupplier right) {
+  public TankDrive(DriveSubsystem subsystem, DoubleSupplier left, DoubleSupplier right, DoubleSupplier speed_modifier) {
     m_drive = subsystem;
     m_left = left;
     m_right = right;
+    m_speed_modifier = speed_modifier;
     addRequirements(m_drive);
   }
 
   @Override
   public void execute() {
-    m_drive.tankDrive(m_left.getAsDouble(), m_right.getAsDouble());
+    m_drive.tankDrive(m_left.getAsDouble(), m_right.getAsDouble(), m_speed_modifier.getAsDouble());
   }
 }

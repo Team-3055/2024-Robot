@@ -66,10 +66,14 @@ public static final class MotorPorts{
     public static final int ShooterMotorPort = 7;
     public static final int ShooterMotor2Port = 11;
     public static final int middleMotorPort = 5;
+    public static final int hookAccutatorPort = 6;
 }
+
 public static final class RobotConstants{
+    public static final double hookMoveSpeed = 1;
+    public static final double shooterMoveSpeed = 1;
     public static final double driveSpeed = 0.5;
-    public static final double shooterSpeed = 1.0;
-    public static final double intakeSpeed = 0.3;
+    public static final double shooterSpeed = 0.5;
+    public static final double intakeSpeed = 0.45;
 }
 }

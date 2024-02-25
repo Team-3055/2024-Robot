@@ -3,11 +3,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.ArmHang;
 
-public class ExtendCommand extends InstantCommand {
+public class ExtendHookCommand extends InstantCommand {
 
     private final ArmHang m_subsystem;
 
-    public ExtendCommand(ArmHang subsystem) {
+    public ExtendHookCommand(ArmHang subsystem) {
         m_subsystem = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
@@ -20,13 +20,13 @@ public class ExtendCommand extends InstantCommand {
 
   @Override
   public void execute() {
-    m_subsystem.extendShooter();
+    m_subsystem.extendHook();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_subsystem.stopShooter();
+    m_subsystem.stopHook();
   }
 
   // Returns true when the command should end.
