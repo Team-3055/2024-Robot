@@ -11,7 +11,8 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.subsystems.DriveSubsystem;
 
 /**
@@ -24,7 +25,6 @@ public class TankDrive extends Command {
   private final DoubleSupplier m_left;
   private final DoubleSupplier m_right;
   private final DoubleSupplier m_speed_modifier;
-
   /**
    * Creates a new DefaultDrive.
    *
@@ -39,10 +39,14 @@ public class TankDrive extends Command {
     m_right = right;
     m_speed_modifier = speed_modifier;
     addRequirements(m_drive);
+    
   }
 
   @Override
   public void execute() {
     m_drive.tankDrive(m_left.getAsDouble(), m_right.getAsDouble(), m_speed_modifier.getAsDouble());
+    Shuffleboard.getTab("Dashboard");
+    SmartDashboard.putNumber("Robot Speed", m_speed_modifier.getAsDouble());
+    SmartDashboard.updateValues();
   }
 }

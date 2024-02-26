@@ -30,9 +30,9 @@ public class DriveSubsystem extends SubsystemBase {
                                 new WPI_TalonSRX(DriveConstants.kRightMotor2Port));
    */
 
-    private final WPI_TalonSRX leftFrontMotor = new WPI_TalonSRX(DriveConstants.kLeftMotor1Port);
+    public final WPI_TalonSRX leftFrontMotor = new WPI_TalonSRX(DriveConstants.kLeftMotor1Port);
     private final WPI_TalonSRX leftRearMotor = new WPI_TalonSRX(DriveConstants.kLeftMotor2Port);
-    private final WPI_TalonSRX rightFrontMotor = new WPI_TalonSRX(DriveConstants.kRightMotor1Port);
+    public final WPI_TalonSRX rightFrontMotor = new WPI_TalonSRX(DriveConstants.kRightMotor1Port);
     private final WPI_TalonSRX rightRearMotor = new WPI_TalonSRX(DriveConstants.kRightMotor2Port);
 
      // The robot's drive

@@ -7,6 +7,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+//import edu.wpi.first.wpilibj.smartdashboard.*;
+//import frc.robot.commands.TankDrive.m_speed_modifier;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -19,6 +22,8 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+  //private AnalogGyro gyro = new AnalogGyro(0);
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -28,6 +33,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    //SmartDashboard.putNumber("Gyro Angle", gyro.getAngle());
+    //SmartDashboard.putNumber("Robot Speed", m_speed_modifier.getAsDouble());
   }
 
   /**
@@ -44,6 +51,9 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    
+    //SmartDashboard.updateValues();
+    //SmartDashboard.putNumber("Robot Speed", m_speed_modifier.getAsDouble());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

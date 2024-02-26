@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.ExtendCommand;
@@ -28,6 +27,8 @@ import frc.robot.commands.AutoCommand;
 import frc.robot.commands.ShootAndIntakeCommand;
 import frc.robot.commands.ExtendHookCommand;
 import frc.robot.commands.RetractHookCommand;
+import frc.robot.commands.reverseFront;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -38,12 +39,11 @@ import frc.robot.commands.RetractHookCommand;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   //private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-
   // import each subsystem
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final NoteIntake m_intake = new NoteIntake();
   private final ArmHang m_armHang = new ArmHang();
-
+    
   // Replace with CommandPS4Controller or CommandJoystick if needed
   //Joystick m_driverLJoystick = new Joystick(OIConstants.kLeftJoystickPort);
   
@@ -63,7 +63,7 @@ public class RobotContainer {
         new TankDrive(
             m_robotDrive,
             () -> (m_driverController.getLeftY()),
-            () -> (m_driverController.getRightY()), () -> ((m_driverRJoystick.getThrottle() * 0.375) + 0.625)));
+            () -> (m_driverController.getRightY()), () -> ((m_driverRJoystick.getThrottle() * 0.25) + 0.75)));
   }
 
   /**
@@ -105,6 +105,9 @@ public class RobotContainer {
     
     new JoystickButton(m_driverRJoystick, 4)
         .whileTrue(new RetractHookCommand(m_armHang));
+
+    new JoystickButton(m_driverRJoystick, 11)
+        .toggleOnTrue(new reverseFront(m_robotDrive));
 
   }
 

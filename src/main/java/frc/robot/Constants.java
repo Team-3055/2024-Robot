@@ -60,7 +60,7 @@ public static final class nIntakeConstants {
     public static final int kShooterMotor = 12;
 }
 public static final class MotorPorts{
-    public static final int ArmHangHydrolicPort = 1;
+    public static final int ArmHangHydrolicPort = 4;
     public static final int IntakeMotorPort = 10;
     public static final int IntakeMotor2Port = 8;
     public static final int ShooterMotorPort = 7;
