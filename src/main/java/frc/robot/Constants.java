@@ -49,6 +49,8 @@ public static final class MISCMotorConstants {
     public static final int kWinch2 = 11;
     public static final int kWinch3 = 1;
     public static final int kWinch4 = 8;
+    public static final int bottomLimitSwitch = 0;
+    public static final int topLimitSwitch = 1;
 }
 
 
@@ -60,7 +62,7 @@ public static final class nIntakeConstants {
     public static final int kShooterMotor = 12;
 }
 public static final class MotorPorts{
-    public static final int ArmHangHydrolicPort = 4;
+    public static final int ArmHangHydrolicPort = 1;
     public static final int IntakeMotorPort = 10;
     public static final int IntakeMotor2Port = 8;
     public static final int ShooterMotorPort = 7;
@@ -70,10 +72,10 @@ public static final class MotorPorts{
 }
 
 public static final class RobotConstants{
-    public static final double hookMoveSpeed = 1;
-    public static final double shooterMoveSpeed = 1;
-    public static final double driveSpeed = 0.5;
-    public static final double shooterSpeed = 0.5;
-    public static final double intakeSpeed = 0.45;
+    public static double hookMoveSpeed = 1;
+    public static double shooterMoveSpeed = 1;
+    public static double driveSpeed = 0.5;
+    public static double shooterSpeed = 0.75;
+    public static double intakeSpeed = 0.75;  
 }
 }

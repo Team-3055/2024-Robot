@@ -14,7 +14,7 @@ public class ArmHang extends SubsystemBase {
     }
 
     public void retractShooter() {
-        shooterMotor.set(-Constants.RobotConstants.shooterMoveSpeed); // Set the motor speed to -1 to retract the hydraulic system.
+        shooterMotor.set(-Constants.RobotConstants.shooterMoveSpeed); // Set the motor speed to -1 to retract the hydraulic system.   
     }
 
     public void stopShooter() {

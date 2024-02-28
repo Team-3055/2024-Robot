@@ -5,18 +5,26 @@
 package frc.robot;
 
 import frc.robot.Constants.OIConstants;
+//import frc.robot.Constants.RobotConstants;
 import frc.robot.subsystems.DriveSubsystem;
 //import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.TankDrive;
+import frc.robot.commands.changeSpeedCommand;
 //import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.NoteIntake;
 import frc.robot.subsystems.ArmHang;
 import edu.wpi.first.wpilibj.Joystick;
+//import frc.robot.Robot;
 
+//import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+//mport edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ShootCommand;
@@ -27,8 +35,6 @@ import frc.robot.commands.AutoCommand;
 import frc.robot.commands.ShootAndIntakeCommand;
 import frc.robot.commands.ExtendHookCommand;
 import frc.robot.commands.RetractHookCommand;
-import frc.robot.commands.reverseFront;
-
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -43,6 +49,8 @@ public class RobotContainer {
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final NoteIntake m_intake = new NoteIntake();
   private final ArmHang m_armHang = new ArmHang();
+  public boolean driveInverted = false;
+  
     
   // Replace with CommandPS4Controller or CommandJoystick if needed
   //Joystick m_driverLJoystick = new Joystick(OIConstants.kLeftJoystickPort);
@@ -55,15 +63,26 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-
     configureBindings();
-    m_robotDrive.setDefaultCommand(
+    SmartDashboard.putBoolean("driveInverted", driveInverted);
+    if(!driveInverted) { // if drive inverted is false
+      m_robotDrive.setDefaultCommand(
         // A split-stick arcade command, with forward/backward controlled by the left
         // hand, and turning controlled by the right.
         new TankDrive(
             m_robotDrive,
             () -> (m_driverController.getLeftY()),
             () -> (m_driverController.getRightY()), () -> ((m_driverRJoystick.getThrottle() * 0.25) + 0.75)));
+    } else {
+      m_robotDrive.setDefaultCommand(
+        // A split-stick arcade command, with forward/backward controlled by the left
+        // hand, and turning controlled by the right.
+        new TankDrive(
+            m_robotDrive,
+            () -> (m_driverController.getLeftY()),
+            () -> (m_driverController.getRightY()), () -> ((m_driverRJoystick.getThrottle() * -0.25) + (-0.75))));
+    }
+    
   }
 
   /**
@@ -82,10 +101,10 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value)
+    new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value)
         .whileTrue(new ReverseIntake(m_intake));
 
-    new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value)
+    new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value)
         .whileTrue(new IntakeCommand(m_intake));
 
     new JoystickButton(m_driverRJoystick, 2)
@@ -107,7 +126,25 @@ public class RobotContainer {
         .whileTrue(new RetractHookCommand(m_armHang));
 
     new JoystickButton(m_driverRJoystick, 11)
-        .toggleOnTrue(new reverseFront(m_robotDrive));
+        .whileTrue(new changeSpeedCommand(11));
+
+    new JoystickButton(m_driverRJoystick, 12)
+        .whileTrue(new changeSpeedCommand(12));
+    
+    new JoystickButton(m_driverRJoystick, 9)
+        .whileTrue(new changeSpeedCommand(9));
+    
+    new JoystickButton(m_driverRJoystick, 10)
+        .whileTrue(new changeSpeedCommand(10));
+
+    if(driveInverted == false){
+      new POVButton(m_driverController, 0)
+        .onTrue(new InstantCommand(() -> {driveInverted = true;}));
+    }
+    if(driveInverted == true){
+      new POVButton(m_driverController, 0)
+        .onTrue(new InstantCommand(() -> {driveInverted = false;}));
+    }
 
   }
 
