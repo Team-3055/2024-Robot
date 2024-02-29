@@ -72,8 +72,8 @@ public class RobotContainer {
         // hand, and turning controlled by the right.
         new TankDrive(
             m_robotDrive,
-            () -> (m_driverController.getLeftY()),
-            () -> (m_driverController.getRightY()),
+            () -> (driveInverted==-1? m_driverController.getRightY() : m_driverController.getLeftY()), // left side
+            () -> (driveInverted==-1? m_driverController.getLeftY() : m_driverController.getRightY()), // right side
             () -> (driveInverted * ((-m_driverRJoystick.getThrottle() * 0.25) + 0.75))));
     }
   
@@ -131,7 +131,10 @@ public class RobotContainer {
         .whileTrue(new changeSpeedCommand(10));
 
     new POVButton(m_driverController, 0)
-        .onTrue(new InstantCommand(() -> {driveInverted = -driveInverted;}));
+        .onTrue(new InstantCommand(() -> {
+            driveInverted = -driveInverted;
+            System.out.println(driveInverted);
+        }));
       
     /*if(driveInverted == false){
       new POVButton(m_driverController, 0)
