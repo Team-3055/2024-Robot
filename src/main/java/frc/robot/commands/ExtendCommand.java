@@ -1,13 +1,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-//import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.subsystems.ArmHang;
-//import frc.robot.Constants.MISCMotorConstants;
+import frc.robot.Constants.MISCMotorConstants;
 
 public class ExtendCommand extends InstantCommand {
     private final ArmHang m_subsystem;
-    //private static DigitalInput topLimitSwitch = new DigitalInput(MISCMotorConstants.topLimitSwitch);
+    private static DigitalInput LimitSwitch = new DigitalInput(MISCMotorConstants.topLimitSwitch);
 
     public ExtendCommand(ArmHang subsystem) {
         m_subsystem = subsystem;
@@ -22,8 +22,9 @@ public class ExtendCommand extends InstantCommand {
 
   @Override
   public void execute() {
-    //if(topLimitSwitch.get() == false){
+      //System.out.println(LimitSwitch.get());
       m_subsystem.extendShooter();
+      System.out.println(LimitSwitch.get());
     //}
     //System.out.println(topLimitSwitch.get());
   }
@@ -38,6 +39,13 @@ public class ExtendCommand extends InstantCommand {
   @Override
   public boolean isFinished() {
     return false;
+    /*
+    System.out.println(LimitSwitch.get());
+    if(LimitSwitch.get() == true){
+      return false;
+    }else{}
+      return true;
+      */
   }
-    
-}
+  }
+  

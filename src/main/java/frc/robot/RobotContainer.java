@@ -13,12 +13,15 @@ import frc.robot.commands.changeSpeedCommand;
 //import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.NoteIntake;
 import frc.robot.subsystems.ArmHang;
+
 import edu.wpi.first.wpilibj.Joystick;
 //import frc.robot.Robot;
 
 //import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 //mport edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
@@ -49,12 +52,11 @@ public class RobotContainer {
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final NoteIntake m_intake = new NoteIntake();
   private final ArmHang m_armHang = new ArmHang();
-  public boolean driveInverted = false;
+  public static int driveInverted = 1;
   
     
   // Replace with CommandPS4Controller or CommandJoystick if needed
   //Joystick m_driverLJoystick = new Joystick(OIConstants.kLeftJoystickPort);
-  
   Joystick m_driverRJoystick = new Joystick(OIConstants.kRightJoystickPort);
   
   private final XboxController m_driverController = 
@@ -64,26 +66,17 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
-    SmartDashboard.putBoolean("driveInverted", driveInverted);
-    if(!driveInverted) { // if drive inverted is false
-      m_robotDrive.setDefaultCommand(
-        // A split-stick arcade command, with forward/backward controlled by the left
-        // hand, and turning controlled by the right.
-        new TankDrive(
-            m_robotDrive,
-            () -> (m_driverController.getLeftY()),
-            () -> (m_driverController.getRightY()), () -> ((m_driverRJoystick.getThrottle() * 0.25) + 0.75)));
-    } else {
-      m_robotDrive.setDefaultCommand(
-        // A split-stick arcade command, with forward/backward controlled by the left
-        // hand, and turning controlled by the right.
-        new TankDrive(
-            m_robotDrive,
-            () -> (m_driverController.getLeftY()),
-            () -> (m_driverController.getRightY()), () -> ((m_driverRJoystick.getThrottle() * -0.25) + (-0.75))));
-    }
     
-  }
+    m_robotDrive.setDefaultCommand(
+        // A split-stick arcade command, with forward/backward controlled by the left
+        // hand, and turning controlled by the right.
+        new TankDrive(
+            m_robotDrive,
+            () -> (m_driverController.getLeftY()),
+            () -> (m_driverController.getRightY()),
+            () -> (driveInverted * ((-m_driverRJoystick.getThrottle() * 0.25) + 0.75))));
+    }
+  
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be created via the
@@ -137,14 +130,19 @@ public class RobotContainer {
     new JoystickButton(m_driverRJoystick, 10)
         .whileTrue(new changeSpeedCommand(10));
 
-    if(driveInverted == false){
+    new POVButton(m_driverController, 0)
+        .onTrue(new InstantCommand(() -> {driveInverted = -driveInverted;}));
+      
+    /*if(driveInverted == false){
       new POVButton(m_driverController, 0)
         .onTrue(new InstantCommand(() -> {driveInverted = true;}));
     }
+
     if(driveInverted == true){
       new POVButton(m_driverController, 0)
         .onTrue(new InstantCommand(() -> {driveInverted = false;}));
     }
+    */
 
   }
 

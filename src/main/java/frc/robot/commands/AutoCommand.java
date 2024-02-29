@@ -33,7 +33,7 @@ public class AutoCommand extends InstantCommand {
     // in autonomous tank drive is reversed
     // -1 is forward 1 is backward
     timeIt++;
-    if(timeIt >= 100 && timeIt <= 200){
+    if(timeIt >= 100 && timeIt <= 400){
       m_subsystem.tankDrive(1,1, 0.5);
    }
    if(timeIt >= 200 && timeIt <= 300){

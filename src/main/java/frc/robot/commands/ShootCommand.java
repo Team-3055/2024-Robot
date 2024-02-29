@@ -22,7 +22,8 @@ public class ShootCommand extends InstantCommand {
 
   @Override
   public void execute() {
-    m_shooter_speed_modifier = SmartDashboard.getNumber("Intake Speed", RobotConstants.intakeSpeed);
+    m_shooter_speed_modifier = SmartDashboard.getNumber("Shooter Speed", RobotConstants.shooterSpeed);
+    System.out.println(m_shooter_speed_modifier);
     m_subsystem.shooterMotor1.set(m_shooter_speed_modifier);
     m_subsystem.shooterMotor2.set(m_shooter_speed_modifier);
     m_subsystem.middleMotor.set(RobotConstants.intakeSpeed);
