@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.Constants.OIConstants;
+import frc.robot.Constants.RobotConstants;
 //import frc.robot.Constants.RobotConstants;
 import frc.robot.subsystems.DriveSubsystem;
 //import frc.robot.commands.ExampleCommand;
@@ -16,12 +17,12 @@ import frc.robot.subsystems.ArmHang;
 
 import edu.wpi.first.wpilibj.Joystick;
 //import frc.robot.Robot;
-
+import edu.wpi.first.wpilibj.PowerDistribution;
 //import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+//import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 //mport edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
@@ -52,6 +53,7 @@ public class RobotContainer {
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   private final NoteIntake m_intake = new NoteIntake();
   private final ArmHang m_armHang = new ArmHang();
+  private PowerDistribution m_distribution = new PowerDistribution();
   public static int driveInverted = 1;
   
     
@@ -72,8 +74,8 @@ public class RobotContainer {
         // hand, and turning controlled by the right.
         new TankDrive(
             m_robotDrive,
-            () -> (m_driverController.getLeftY()),
-            () -> (m_driverController.getRightY()),
+            () -> (driveInverted == -1? m_driverController.getRightY() : m_driverController.getLeftY()),
+            () -> (driveInverted == -1? m_driverController.getLeftY() : m_driverController.getRightY()),
             () -> (driveInverted * ((-m_driverRJoystick.getThrottle() * 0.25) + 0.75))));
     }
   
@@ -119,16 +121,16 @@ public class RobotContainer {
         .whileTrue(new RetractHookCommand(m_armHang));
 
     new JoystickButton(m_driverRJoystick, 11)
-        .whileTrue(new changeSpeedCommand(11));
+        .onTrue(new changeSpeedCommand(11));
 
     new JoystickButton(m_driverRJoystick, 12)
-        .whileTrue(new changeSpeedCommand(12));
+        .onTrue(new changeSpeedCommand(12));
     
     new JoystickButton(m_driverRJoystick, 9)
-        .whileTrue(new changeSpeedCommand(9));
+        .onTrue(new changeSpeedCommand(9));
     
     new JoystickButton(m_driverRJoystick, 10)
-        .whileTrue(new changeSpeedCommand(10));
+        .onTrue(new changeSpeedCommand(10));
 
     new POVButton(m_driverController, 0)
         .onTrue(new InstantCommand(() -> {driveInverted = -driveInverted;}));
@@ -155,7 +157,32 @@ public class RobotContainer {
     // An example command will be run in autonomous
     return new AutoCommand(m_robotDrive, 5.0); // time in seconds
   }
+  public void updateSmartDashboard(){
+    SmartDashboard.putData("PDP panel", m_distribution);
+    SmartDashboard.putData("Drive motors", m_robotDrive);
+    SmartDashboard.putNumber("Robot Speed", (driveInverted * ((-m_driverRJoystick.getThrottle() * 0.25) + 0.75)));
+    SmartDashboard.putNumber("Match Time", Timer.getMatchTime());
+    SmartDashboard.putNumber("Shooter Speed", RobotConstants.shooterSpeed);
+    SmartDashboard.putNumber("Intake Speed", RobotConstants.intakeSpeed);
 
+    //dashboard commands
+    
+    
+  }
+  public void initSmartDashboard(){
+    SmartDashboard.putData("Arm: Up", new ExtendCommand(m_armHang));
+    SmartDashboard.putData("Arm: Down", new RetractCommand(m_armHang));
+    SmartDashboard.putData("Hook: Up", new ExtendHookCommand(m_armHang));
+    SmartDashboard.putData("Hook Down", new RetractHookCommand(m_armHang));
 
-};
+    SmartDashboard.putData("Intake and Shoot", new ShootAndIntakeCommand(m_intake));
+    SmartDashboard.putData("Shoot", new ShootCommand(m_intake));
+    SmartDashboard.putData("Intake", new IntakeCommand(m_intake));
+    
+    SmartDashboard.putData("Forward",new TankDrive(m_robotDrive, () -> 1, () -> 1, () -> 0.5));
+    SmartDashboard.putData("Backward",new TankDrive(m_robotDrive, () -> -1, () -> -1, () -> 0.5));
+    SmartDashboard.putData("Left",new TankDrive(m_robotDrive, () -> 1, () -> -1, () -> 0.25));
+    SmartDashboard.putData("Right",new TankDrive(m_robotDrive, () -> -1, () -> 1, () -> 0.25));
+  }
+}
 

@@ -19,16 +19,26 @@ public class changeSpeedCommand extends InstantCommand {
   @Override
   public void execute() {
     if(buttonNumber==11){
-        RobotConstants.intakeSpeed -= 0.05;
+        if(RobotConstants.intakeSpeed > 0.25){
+            RobotConstants.intakeSpeed -= 0.25;
+            System.out.println("Intake -");
+        }
     }
     if(buttonNumber==12){
-        RobotConstants.intakeSpeed += 0.05;
+        if(RobotConstants.intakeSpeed < 1){
+            RobotConstants.intakeSpeed += 0.25;
+            System.out.println("Intake +");
+        }
     }
     if(buttonNumber==9){
-        RobotConstants.shooterSpeed -= 0.05;
+        if(RobotConstants.shooterSpeed > 0.25){
+            RobotConstants.shooterSpeed -= 0.25;
+        }
     }
     if(buttonNumber==10){
-        RobotConstants.shooterSpeed += 0.05;
+        if(RobotConstants.shooterSpeed < 1){
+            RobotConstants.shooterSpeed += 0.25;
+        }
     }
   }
 

@@ -33,11 +33,8 @@ public class AutoCommand extends InstantCommand {
     // in autonomous tank drive is reversed
     // -1 is forward 1 is backward
     timeIt++;
-    if(timeIt >= 100 && timeIt <= 400){
-      m_subsystem.tankDrive(1,1, 0.5);
-   }
-   if(timeIt >= 200 && timeIt <= 300){
-      new ShootCommand(m_intake);
+    if(timeIt >= 0 && timeIt <= 200){ // from second 0 to second 5 drive forward; run for 5 seconds
+      m_subsystem.tankDrive(-1,-1, 0.75);
    }
   }
 
@@ -45,7 +42,7 @@ public class AutoCommand extends InstantCommand {
   @Override
   public void end(boolean interrupted) {
     m_subsystem.tankDrive(0, 0, 1);
-    System.out.println("!!!!!!!!!!AUTONOMOUS ENDED HERE!!!!!!!!!!!!");
+    //System.out.println("!!!!!!!!!!AUTONOMOUS ENDED HERE!!!!!!!!!!!!");
     timeIt = 0;
   }
 

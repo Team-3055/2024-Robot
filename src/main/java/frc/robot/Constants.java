@@ -75,7 +75,7 @@ public static final class RobotConstants{
     public static double hookMoveSpeed = 1;
     public static double shooterMoveSpeed = 1;
     public static double driveSpeed = 0.5;
-    public static double shooterSpeed = 0.75;
-    public static double intakeSpeed = 0.75;  
+    public static double shooterSpeed = 1;
+    public static double intakeSpeed = 1;  
 }
 }
