@@ -10,11 +10,11 @@ public class ArmHang extends SubsystemBase {
     private WPI_TalonSRX hookMotor = new WPI_TalonSRX(Constants.MotorPorts.hookAccutatorPort);
 
     public void extendShooter() {
-        shooterMotor.set(Constants.RobotConstants.shooterMoveSpeed); // Set the motor speed to 1 to extend the hydraulic system.
+        shooterMotor.set(-Constants.RobotConstants.shooterMoveSpeed); // Set the motor speed to 1 to extend the hydraulic system.
     }
 
     public void retractShooter() {
-        shooterMotor.set(-Constants.RobotConstants.shooterMoveSpeed); // Set the motor speed to -1 to retract the hydraulic system.   
+        shooterMotor.set(Constants.RobotConstants.shooterMoveSpeed); // Set the motor speed to -1 to retract the hydraulic system.   
     }
 
     public void stopShooter() {

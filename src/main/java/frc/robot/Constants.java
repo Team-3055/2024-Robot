@@ -28,7 +28,6 @@ public static final class OIConstants {
     public static final int kLeftJoystickPort = 1;
     public static final int kXboxControllerPort = 0;
     public static final int kXboxController2Port = 3;
-    
     //Values of joystick button mapping
     public static final int kJoystickTrigger = 1;
     public static final int kJoystickTop = 2;
@@ -40,8 +39,6 @@ public static final class PNUConstants {
     public static final int kSolenoid2 = 1;
     public static final int kSolenoid3 = 2;
 }
-
-
 public static final class MISCMotorConstants {
     //useless 2024
     public static final int kWheel = 5;
@@ -52,8 +49,6 @@ public static final class MISCMotorConstants {
     public static final int bottomLimitSwitch = 0;
     public static final int topLimitSwitch = 1;
 }
-
-
 public static final class nIntakeConstants {
     //quite useless 
     public static final int kIntakeMotor = 9;
@@ -61,6 +56,7 @@ public static final class nIntakeConstants {
     public static final int kLaunchMotor2 = 4;
     public static final int kShooterMotor = 12;
 }
+
 public static final class MotorPorts{
     public static final int ArmHangHydrolicPort = 1;
     public static final int IntakeMotorPort = 10;
@@ -70,7 +66,6 @@ public static final class MotorPorts{
     public static final int middleMotorPort = 5;
     public static final int hookAccutatorPort = 6;
 }
-
 public static final class RobotConstants{
     public static double hookMoveSpeed = 1;
     public static double shooterMoveSpeed = 1;

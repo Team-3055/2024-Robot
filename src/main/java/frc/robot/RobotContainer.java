@@ -14,12 +14,15 @@ import frc.robot.commands.changeSpeedCommand;
 //import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.NoteIntake;
 import frc.robot.subsystems.ArmHang;
-
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.Joystick;
 //import frc.robot.Robot;
 import edu.wpi.first.wpilibj.PowerDistribution;
 //import edu.wpi.first.wpilibj.PS5Controller;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+//import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Timer;
 //import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -54,9 +57,13 @@ public class RobotContainer {
   private final NoteIntake m_intake = new NoteIntake();
   private final ArmHang m_armHang = new ArmHang();
   private PowerDistribution m_distribution = new PowerDistribution();
+
+  private ShuffleboardTab autoTab = Shuffleboard.getTab("Auto Select");
+  private GenericEntry autoSelect = autoTab.add("auto_Select", 0).getEntry();
+
   public static int driveInverted = 1;
-  
-    
+  public static int autoNumber = 1;
+ 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   //Joystick m_driverLJoystick = new Joystick(OIConstants.kLeftJoystickPort);
   Joystick m_driverRJoystick = new Joystick(OIConstants.kRightJoystickPort);
@@ -68,7 +75,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
-    
+
     m_robotDrive.setDefaultCommand(
         // A split-stick arcade command, with forward/backward controlled by the left
         // hand, and turning controlled by the right.
@@ -155,7 +162,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return new AutoCommand(m_robotDrive, 5.0); // time in seconds
+    return new AutoCommand(m_robotDrive, m_intake, autoSelect.getDouble(0)); // time in seconds
   }
   public void updateSmartDashboard(){
     SmartDashboard.putData("PDP panel", m_distribution);
@@ -181,8 +188,8 @@ public class RobotContainer {
     
     SmartDashboard.putData("Forward",new TankDrive(m_robotDrive, () -> 1, () -> 1, () -> 0.5));
     SmartDashboard.putData("Backward",new TankDrive(m_robotDrive, () -> -1, () -> -1, () -> 0.5));
-    SmartDashboard.putData("Left",new TankDrive(m_robotDrive, () -> 1, () -> -1, () -> 0.25));
-    SmartDashboard.putData("Right",new TankDrive(m_robotDrive, () -> -1, () -> 1, () -> 0.25));
+    SmartDashboard.putData("Left",new TankDrive(m_robotDrive, () -> 1, () -> -1, () -> 0.5));
+    SmartDashboard.putData("Right",new TankDrive(m_robotDrive, () -> -1, () -> 1, () -> 0.5));
   }
 }
 
